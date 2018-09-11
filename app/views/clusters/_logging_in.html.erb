@@ -1,0 +1,22 @@
+<div class="alert alert-secondary mt-5" role="alert">
+  <h4 class="alert-heading">Logging in</h4>
+  <p>There is a static user for the DC/OS UI called <a href="#" class="alert-link">dcos-dev</a>, its password is '<a href="#" class="alert-link">dogfoodinit</a>'.</p>
+  <hr>
+  <h4 class="alert-heading">SSH</h4>
+  <p class="mb-0">
+  To connect to a node of the latest soak cluster, you need the AWS Dev SSH key and you can either use the DC/OS CLI:
+  <div class="alert alert-dark text-light" role="alert">
+    $ dcos node ssh --master-proxy --user=centos --private-ip=&lt;ip-of-the-node&gt; </br>
+    [centos@int-agent32-soak111 ~]$ sudo -s</br>
+    [root@int-agent32-soak111 centos]# id</br>
+    uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023</br>
+  </div>
+
+  Or plain SSH via the nodes externally resolvable FQDNS:
+  <div class="alert alert-dark text-light" role="alert">
+    $ ssh master1-soak110.testing.mesosphe.re -l centos</br>
+    $ ssh agent4-soak110.testing.mesosphe.re -l centos</br>
+    $ ssh mountvolumeagent2-soak112s.testing.mesosphe.re -l centos</br>
+  </div>
+</p>
+</div>

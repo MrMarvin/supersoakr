@@ -1,0 +1,34 @@
+<div class="mt-5">
+  <h1>Soak clusters</h1>
+</div>
+
+<%= render "header" %>
+
+<% @clusters.select {|c| !c.get_tf_output('prefix').nil? }.each_slice(4) do |cluster_slice| %>
+  <div class="row">
+    <% cluster_slice.each do |cluster| %>
+      <div class="col-3 p-2">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to(cluster.get_tf_output('prefix'), "https://#{cluster.get_tf_output('prefix')}.testing.mesosphe.re")  %></h5>
+            <h6 class="card-subtitle mb-2 text-muted">${dcos_version}</h6>
+            <div class="card-text">
+              <ul>
+                <li> <%= cluster.get_tf_output('master_public_fqdns').split("\n").count %> Masters </l>
+                <li> <%= cluster.get_tf_output('agent_public_fqdns').split("\n").count %> Agents </li>
+                <li> <%= cluster.get_tf_output('public_agent_public_fqdns').split("\n").count %> Public Agents </li>
+              </ul>
+            </div>
+            <%= link_to("📄 Kibana", "https://#{cluster.get_tf_output('prefix')}.testing.mesosphe.re/service/logs/kibana/app/kibana", class: 'card-link') %>
+            <%= link_to("📈🐕Datadog", "https://app.datadoghq.com/screen/83096/latest-soak-cluster?page=0&is_auto=false&live=true&tpl_var_cluster=#{cluster.get_tf_output('prefix')}", class: 'card-link') %>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><%= link_to("https://#{cluster.get_tf_output('prefix')}.testing.mesosphe.re", "https://#{cluster.get_tf_output('prefix')}.testing.mesosphe.re") %></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<%= render "logging_in" %>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>💦Supersoakr</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">
+        <%= image_tag("logo.svg", width: "200px") %>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-between" id="navbar">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/clusters"><i class="fa fa-cloud" aria-hidden="true"></i>Soak Clusters</a>
+          </li>
+      </ul
+      ><ul  class="nav navbar-nav navbar-right">
+        <li class="nav-item">
+          <a class="nav-link" target="_blank" href="https://wiki.mesosphere.com/display/ENGINEERING/Soak+Cluster+Pointers"><i class="fa fa-question-circle" aria-hidden="true"></i>Help</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sso?slo"><i class="fa fa-window-close-o" aria-hidden="true"></i> Logout</a>
+        </li>
+      </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
