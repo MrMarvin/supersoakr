@@ -12,6 +12,7 @@ class ClustersController < ApplicationController
     state_files.each do |state_file|
       @clusters << Cluster.new(JSON.parse(s3.get_object(bucket: bucket_name, key: state_file).body.read))
     end
+
     @clusters
   end
 end

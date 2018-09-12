@@ -11,7 +11,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title"><%= link_to(cluster.get_tf_output('prefix'), "https://#{cluster.get_tf_output('prefix')}.testing.mesosphe.re")  %></h5>
-            <h6 class="card-subtitle mb-2 text-muted">${dcos_version}</h6>
+            <h6 class="card-subtitle mb-2 text-muted" > <%= cluster.version()['version'] %> (<%= cluster.version()['dcos-image-commit'] %>)</h6>
             <div class="card-text">
               <ul>
                 <li> <%= cluster.get_tf_output('master_public_fqdns').split("\n").count %> Masters </l>
