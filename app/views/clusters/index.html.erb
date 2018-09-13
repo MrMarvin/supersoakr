@@ -4,7 +4,7 @@
 
 <%= render "header" %>
 
-<% @clusters.select {|c| !c.get_tf_output('prefix').nil? }.each_slice(4) do |cluster_slice| %>
+<% @clusters.select {|c| !c.get_tf_output('prefix').nil? }.sort_by{ |c| Gem::Version.new(c.version()['version'])}.reverse.each_slice(4) do |cluster_slice| %>
   <div class="row">
     <% cluster_slice.each do |cluster| %>
       <div class="col-3 p-2">
