@@ -7,5 +7,6 @@ COPY Gemfile /supersoakr/Gemfile
 COPY Gemfile.lock /supersoakr/Gemfile.lock
 RUN bundle install
 COPY . /supersoakr
+ARG RAILS_MASTER_KEY=unset
 RUN RAILS_ENV=production bin/rails assets:precompile
 
