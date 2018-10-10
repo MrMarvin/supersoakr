@@ -1,10 +1,24 @@
 class ApplicationController < ActionController::Base
-  before_action :enable_cors
+  before_action :authenticate_user!
 
-  def enable_cors
-    headers['Access-Control-Allow-Origin'] = '*'
-headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
-headers['Access-Control-Request-Method'] = '*'
-headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  helper_method :current_user
+
+  private
+    def current_user
+      if session[:uid] and session[:expires_at] and session[:expires_at] > Time.current
+        @current_user ||= User.new()
+        @current_user.uid = session[:uid]
+
+        @current_user
+      else
+        nil
+      end
+    end
+
+
+  def authenticate_user!
+    if !current_user
+      redirect_to sso_signin_url, :alert => 'You need to sign in for access to this page.'
+    end
   end
 end
