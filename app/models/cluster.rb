@@ -15,7 +15,11 @@ class Cluster
   end
 
   def version
-    url = URI("https://#{get_tf_output('prefix')}.testing.mesosphe.re/dcos-metadata/dcos-version.json")
-    @version ||= JSON.parse(Net::HTTP.get(url))
+    Rails.cache.fetch("clusters/#{get_tf_output('prefix')}", expires_in: 1.hours) do
+      url = URI("https://#{get_tf_output('prefix')}.testing.mesosphe.re/dcos-metadata/dcos-version.json")
+      JSON.parse(Net::HTTP.get(url))
+    end
+  rescue StandardError
+    return {'version' => '0.0.0', 'dcos-image-commit' => '???'}
   end
 end
