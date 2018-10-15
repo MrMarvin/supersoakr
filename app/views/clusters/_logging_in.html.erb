@@ -1,10 +1,10 @@
 <div class="alert alert-secondary mt-5" role="alert">
   <h4 class="alert-heading">Logging in</h4>
-  <p>There is a static user for the DC/OS UI called <a href="#" class="alert-link">dcos-dev</a>, its password is '<a href="#" class="alert-link">dogfoodinit</a>'.</p>
+  <p>There is a static user for the DC/OS UI called '<span class="font-weight-bold">dcos-dev</span>', its password is '<span class="font-weight-bold">dogfoodinit</span>'.</p>
   <hr>
   <h4 class="alert-heading">SSH</h4>
   <p class="mb-0">
-  To connect to a node of the latest soak cluster, you need the insecure shared <%= link_to('AWS Dev SSH key', 'https://mesosphere.onelogin.com/notes/13282', class: 'alert-link') %> and you can either use the DC/OS CLI:
+  To connect to a node of the latest soak cluster, you need the insecure shared <%= link_to('AWS Dev SSH key', 'https://mesosphere.onelogin.com/notes/13282', class: 'link') %> and you can either use the DC/OS CLI:
   <div class="alert alert-dark text-light" role="alert">
     $ dcos node ssh --master-proxy --user=centos --private-ip=&lt;ip-of-the-node&gt; </br>
     [centos@int-agent32-soak111 ~]$ sudo -s</br>
