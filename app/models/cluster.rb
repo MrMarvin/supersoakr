@@ -16,10 +16,21 @@ class Cluster
 
   def version
     Rails.cache.fetch("clusters/#{get_tf_output('prefix')}", expires_in: 1.hours) do
-      url = URI("https://#{get_tf_output('prefix')}.testing.mesosphe.re/dcos-metadata/dcos-version.json")
-      JSON.parse(Net::HTTP.get(url, read_timeout: 5))
+      begin
+        uri = URI.parse("https://#{get_tf_output('prefix')}.testing.mesosphe.re/dcos-metadata/dcos-version.json")
+
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = (uri.port == 443)
+        http.open_timeout = 2
+        http.read_timeout = 2
+        Rails.logger.info("updating cluster version from #{uri.to_s}")
+        res = http.request(Net::HTTP::Get.new(uri.request_uri))
+
+        JSON.parse(res.body)
+
+      rescue StandardError
+        {'version' => '0.0.0', 'dcos-image-commit' => '???'}
+      end
     end
-  rescue StandardError
-    return {'version' => '0.0.0', 'dcos-image-commit' => '???'}
   end
 end

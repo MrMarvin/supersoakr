@@ -7,10 +7,12 @@ class ClustersController < ApplicationController
 
     @clusters = Rails.cache.fetch("clusters", expires_in: 1.hours) do
       @clusters = []
+      logger.info('updating list of existiung clusters from S3')
       state_files = s3.list_objects(bucket: bucket_name, prefix: bucket_prefix).contents.map {|k| k.key}
       state_files.delete(bucket_prefix)
 
       state_files.each do |state_file|
+        logger.info("Getting state file for cluster #{state_file}")
         @clusters << Cluster.new(JSON.parse(s3.get_object(bucket: bucket_name, key: state_file).body.read))
       end
 
